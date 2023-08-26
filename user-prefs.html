@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Prefs</title>
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body onload="onInit()" class="page-body">
+    <main class="form-wrapper">
+        <form>
+            <label>E-Mail <input type="email" id="email-input" required name="email" placeholder="insert your e-mail here"></label>
+            <label>Age <input type="range" id="age-input" name="age" min="18" max="120" onchange="onAgeChange()"><span class="age-span"></span></label>
+            <label>Set Background Color <input type="color" id="bg-color-input" name="bgColor"></label>
+            <label>Set Text Color <input type="color" id="color-input" name="textColor"></label>
+            <label>Birth Date <input type="date" id="date-input" name="birthDate"></label>
+            <label>Birth Time <input type="time" id="time-input" name="birtTime"></label>
+            <button class="submit-btn" type="submit">Set</button>
+        </form>
+        <nav>
+            <a href="./index.html">Home</a>
+            <a href="./map.html">Places</a>
+        </nav>
+    </main>
+    <script type="module" src="./js/userController.js"></script>
+</body>
+</html>
