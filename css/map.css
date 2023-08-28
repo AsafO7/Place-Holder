@@ -1,6 +1,48 @@
 
-#map {
-    height: 60vh;
+.main-app {
     width: 90%;
     margin: auto;
+    display: flex;
+    height: 60vh;
+    justify-content: center;
+}
+
+#map {
+    height: 60vh;
+    width: 50%;
+    /* margin: auto; */
+}
+
+h3 {
+    margin: 0.5rem;
+}
+
+.list-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.places-list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.places-list > li {
+    margin: 0.5rem 0;
+}
+
+.btn-remove {
+    margin-right: 0.5rem;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+nav > a {
+    margin: 0 1rem;
+    font-size: 1.5em;
 }

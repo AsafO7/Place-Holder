@@ -1,23 +1,27 @@
 // manages the place entity CRUDL
 import { utilsService } from "./utilsService.js"
+import { storageService } from './storageService.js'
 
 export const mapService = {
     initMap,
-    addLocation,
+    getPlaces,
+    removePlace,
+    addPlace,
+    getPlaceById,
 }
 
 
-var gMap
-let gMapClickListener
 const STORAGE_KEY = "FavoritePlaces"
 
-async function initMap(lat = 32.0749831, lng = 34.9120554) {
+async function initMap(lat = 29.557630268094844, lng = 34.95188087021005, gMap) {
     await _connectGoogleApi()
     gMap = new google.maps.Map(
         document.querySelector('#map'), {
         center: { lat, lng },
         zoom: 15
     })
+    
+    return gMap
 }
 
 function _connectGoogleApi() {
@@ -34,14 +38,27 @@ function _connectGoogleApi() {
     })
 }
 
-function addLocation() {
-    gMapClickListener = gMap.addListener( 'click', onMapClick)
+async function addPlace(event, placeName) {
+    const newPlace = _createPlace(placeName, event.latLng.lat(), event.latLng.lng(), 15)
+    const addedPlace = await storageService.post(STORAGE_KEY, newPlace)
+    return addedPlace
 }
 
-async function onMapClick(event) {
-    const placeName = prompt("Name of the place")
-    // Add marker on added location
-    const newPlace = {id: utilsService.createId(), lat: event.latLng.lat(), lng: event.latLng.lng(), name: placeName}
-    console.log(newPlace)
-    gMapClickListener.remove()
+async function removePlace(placeId) {
+    return await storageService.remove(STORAGE_KEY, placeId)
+}
+
+async function getPlaces() {
+    let places = await storageService.query(STORAGE_KEY)
+    return places
+}
+
+async function getPlaceById(placeId) {
+    const place = await storageService.get(STORAGE_KEY, placeId)
+    return place
+}
+
+function _createPlace(name, lat, lng, zoom) {
+    const place = {id: utilsService.createId(), lat, lng, name, zoom}
+    return place
 }
